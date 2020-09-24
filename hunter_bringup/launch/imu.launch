@@ -1,0 +1,10 @@
+<launch>
+  <node  name="tl740d_imu" pkg="imu_com" type="imu" output="screen" >
+    <param name="imu_frame" value="imu_link"/>
+    <param name="imu_topic" value="/imu/data"/>
+  </node>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu" args="0.0 0 0 0 0 0 base_link imu_link 100"/> -->
+  <!-- the same orientation with /camera -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu" args="0.4 0 0.4 1.570795 0 1.570795 /base_link /imu_link 100" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu" args="0.4 0 0.4 0 0 0 /base_link /imu_link 100" />
+</launch>

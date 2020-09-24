@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find hunter_bringup)/launch/rs16.launch" />
+  <include file="$(find hunter_bringup)/launch/imu.launch" />
+
+</launch>

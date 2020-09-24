@@ -1,0 +1,12 @@
+<launch>
+        <!-- start base and load model -->
+    <include file="$(find hunter_base)/launch/hunter_base.launch">
+        <arg name="port_name" default="can0" />
+        <arg name="simulated_robot" default="false" />
+    </include>
+    <include file="$(find hunter_description)/launch/load_nav_model.launch" />
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_rslidar" args="0.25 0 0.75 0 0 0 base_link rslidar 100"/> -->
+<include file="$(find hunter_bringup)/launch/rs16.launch" />
+<include file="$(find hunter_bringup)/launch/imu.launch" />
+</launch>

@@ -1,0 +1,26 @@
+<launch>
+
+    <arg name="map_name" default="$(find hunter_bringup)/maps/giim-611-legoodom.yaml"/>
+
+        <!-- start base and load model -->
+    <include file="$(find hunter_base)/launch/hunter_base.launch">
+        <arg name="port_name" default="can0" />
+        <arg name="simulated_robot" default="false" />
+    </include>
+    <include file="$(find hunter_description)/launch/load_nav_model.launch" />
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_rslidar" args="0.25 0 0.75 0 0 0 base_link rslidar 100"/> -->
+<include file="$(find hunter_bringup)/launch/rs16_2scan.launch" />
+<!-- <include file="$(find hunter_bringup)/launch/imu.launch" /> -->
+
+
+<!-- map server -->
+<node pkg="map_server" type="map_server" name="map_server" output="screen" args="$(arg map_name)">
+  </node>
+
+<!-- amcl -->
+    <include file="$(find amcl)/examples/amcl_hunter.launch" />
+
+
+
+</launch>

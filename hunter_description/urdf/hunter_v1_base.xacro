@@ -20,9 +20,21 @@
     <!-- Base link -->
     <link name="base_link">
         <visual>
-            <origin xyz="${wheelbase/2} 0 0" rpy="0 0 3.14" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh filename="package://hunter_description/meshes/base_link.dae" />
+            </geometry>
+        </visual>
+        <visual>
+            <origin xyz="0 0 0.12" rpy="0 0 0" />
+            <geometry>
+                <box size="0.75 0.15 0.08"/>
+            </geometry>
+        </visual>
+        <visual>
+            <origin xyz="0.17 0 0.06" rpy="0 0 0" />
+            <geometry>
+                <box size="0.45 0.37 0.18"/>
             </geometry>
         </visual>
         <collision>
@@ -38,39 +50,6 @@
             </geometry>
         </collision>
     </link>
-
-    <!-- sensors  -->
-    <link name="rslidar">
-        <visual>
-            <origin xyz="0.0 0.0 0.0" />
-            <geometry>
-                <cylinder length="0.07" radius="0.05" />
-            </geometry>
-            <material name="orange" />
-        </visual>
-    </link>
-
-    <joint name="rslidar_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="rslidar" />
-        <origin xyz="0.55 0.0 0.75" rpy="0 0 0" />
-    </joint>
-
-    <link name="imu_link">
-        <visual>
-            <origin xyz="0.0 0.0 0.0" />
-            <geometry>
-                <cylinder length="0.03" radius="0.02" />
-            </geometry>
-            <material name="red" />
-        </visual>
-    </link>
-
-    <joint name="imu_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="imu_link" />
-        <origin xyz="0.55 0.0 0.4" rpy="0 0 0" />
-    </joint>
 
     <link name="base_footprint"/>
 
@@ -99,7 +78,7 @@
 
     <!-- front right wheel -->
     <joint name="front_right_steering" type="revolute">
-        <origin xyz="${wheelbase} ${track/2-wheel_steering_offset} ${wheel_vertical_offset}" rpy="0 0 0" />
+        <origin xyz="-${wheelbase/2} ${track/2-wheel_steering_offset} ${wheel_vertical_offset}" rpy="0 0 0" />
         <parent link="base_link"/>
         <child link="front_right_steer_link"/>
         <axis xyz="0 0 1" rpy="0 0 0" />
@@ -139,12 +118,12 @@
                 <mesh filename="package://hunter_description/meshes/wheel_fr.dae" />
             </geometry>
         </visual>
-        <!-- <visual>
+        <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh filename="package://hunter_description/meshes/hub_shape.stl" />
             </geometry>
-        </visual> -->
+        </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
             <geometry>
@@ -155,7 +134,7 @@
 
     <!-- front left wheel -->
     <joint name="front_left_steering" type="revolute">
-        <origin xyz="${wheelbase} -${track/2-wheel_steering_offset} ${wheel_vertical_offset}" rpy="0 0 0" />
+        <origin xyz="-${wheelbase/2} -${track/2-wheel_steering_offset} ${wheel_vertical_offset}" rpy="0 0 0" />
         <parent link="base_link"/>
         <child link="front_left_steer_link"/>
         <axis xyz="0 0 1" rpy="0 0 0" />
@@ -195,12 +174,12 @@
                 <mesh filename="package://hunter_description/meshes/wheel_fl.dae" />
             </geometry>
         </visual>
-        <!-- <visual>
+        <visual>
             <origin xyz="0 0 0" rpy="0 0 3.14" />
             <geometry>
                 <mesh filename="package://hunter_description/meshes/hub_shape.stl" />
             </geometry>
-        </visual> -->
+        </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
             <geometry>
@@ -222,12 +201,12 @@
                 <mesh filename="package://hunter_description/meshes/wheel_rl.dae" />
             </geometry>
         </visual>
-        <!-- <visual>
+        <visual>
             <origin xyz="0 0 0" rpy="0 0 3.14" />
             <geometry>
                 <mesh filename="package://hunter_description/meshes/hub_shape.stl" />
             </geometry>
-        </visual> -->
+        </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
             <geometry>
@@ -237,7 +216,7 @@
     </link>
 
     <joint name="rear_left_wheel" type="continuous">
-        <origin xyz="0 -${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+        <origin xyz="${wheelbase/2} -${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
         <parent link="base_link"/>
         <child link="rear_left_wheel_link"/>
         <axis xyz="0 -1 0" rpy="0 0 0" />
@@ -256,12 +235,12 @@
                 <mesh filename="package://hunter_description/meshes/wheel_rr.dae" />
             </geometry>
         </visual>
-        <!-- <visual>
+        <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh filename="package://hunter_description/meshes/hub_shape.stl" />
             </geometry>
-        </visual> -->
+        </visual>
         <collision>
             <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
             <geometry>
@@ -271,10 +250,9 @@
     </link>
 
     <joint name="rear_right_wheel" type="continuous">
-        <origin xyz="0 ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
         <parent link="base_link"/>
         <child link="rear_right_wheel_link"/>
         <axis xyz="0 -1 0" rpy="0 0 0" />
     </joint>
-
 </robot>
