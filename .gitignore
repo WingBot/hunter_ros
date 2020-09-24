@@ -57,3 +57,5 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+hunter_webots_sim/include/hunter_webots_sim/.hunter_webots_interface.hpp.swp
+hunter_webots_sim/include/hunter_webots_sim/.hunter_webots_interface.hpp.swo
