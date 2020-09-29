@@ -1,5 +1,5 @@
 <launch>
-  <node  name="tl740d_imu" pkg="imu_com" type="imu" output="screen" >
+  <node  name="tl740d_imu" pkg="imu_com" type="imu_com" output="screen" >
     <param name="imu_frame" value="imu_link"/>
     <param name="imu_topic" value="/imu/data"/>
   </node>
