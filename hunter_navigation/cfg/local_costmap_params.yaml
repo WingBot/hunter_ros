@@ -1,13 +1,14 @@
 local_costmap:
   global_frame: map
   robot_base_frame: base_link
-  update_frequency: 5.0
+  update_frequency: 5.0   # 根据传感器数据,本地地图更新的频率,单位为Hz(次/每秒)。对于很慢的计算机,你可能需要减小这个值。
   publish_frequency: 2.0
   # static_map: false
   rolling_window: true
   width: 7.0 #5.5
   height: 7.0 #5.5
   resolution: 0.1
+  # 滑动地图的分辨率,单位为米。这个参数应该与YAML文件设置的地图分辨率匹配 0.05
   transform_tolerance: 0.5
   
   plugins:
