@@ -27,3 +27,12 @@ inflation_layer:
 static_layer:
   enabled: true
   map_topic: "/map"
+
+
+sonar_layer:
+  ns : ""     #( string , default : ”” )  命名空间，用作所有topic的前缀；
+  topics : ['/sonar/1','/sonar/2','/sonar/3','/sonar/4']        #(Array of strings , default : [‘/sonar/1’] ) 列举可以订阅的距离topic；
+  no_readings_timeout : 0.0      #( double , default : 0.0 ) 如果是0，该参数不起作用，否则如果层在该参数指定时间内没有收到传感器任何数据，层会给出warning并被标记为没有数据流；
+  clear_threshold : 0.2        #( double, default : .2 ) 概率比clear_threshold低的cell在master costmap中被标记为free空间；
+  mark_threshold :  0.8    #( double , default : .8 ) 概率比mark_threshold高的cell在master costmap中被标记为lethal obstacles；
+  clear_on_max_reading :  true  #( bool , default : false ) 是否将超出sonar最大距离清除。
