@@ -18,6 +18,9 @@
 
         <param name="clearing_rotation_allowed" value="false" />
         <!-- Our carlike robot is not able to rotate in place -->
+
+
+        <remap from="cmd_vel" to="nav/cmd_vel"/>
     </node>
 
 </launch>
