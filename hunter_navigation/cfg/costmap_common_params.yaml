@@ -2,7 +2,7 @@
 #---standard pioneer footprint---
 #---(in meters)---
 #footprint: [ [0.254, -0.0508], [0.1778, -0.0508], [0.1778, -0.1778], [-0.1905, -0.1778], [-0.254, 0], [-0.1905, 0.1778], [0.1778, 0.1778], [0.1778, 0.0508], [0.254, 0.0508] ]
-footprint: [[-0.15, -0.38], [-0.15, 0.38], [1.1, 0.38], [1.1, -0.38]]   # 跟teb配置文件统一
+footprint: [[-0.25, -0.4], [-0.25, 0.4], [1.1, 0.4], [1.1, -0.4]]   # 跟teb配置文件统一
 
 transform_tolerance: 0.2
 # map_type: costmap
@@ -11,7 +11,7 @@ obstacle_layer:
   enabled: true
   obstacle_range: 8.0 # 3.0 规划考虑8米内障碍物
   raytrace_range: 10.0 # 3.5 实时清除10米内障碍物
-  inflation_radius: 0.4 # 0.2
+  inflation_radius: 0.5 # 0.2
   track_unknown_space: false
   combination_method: 1
   observation_sources: laser_scan_sensor
@@ -35,10 +35,10 @@ static_layer:
   map_topic: "/map"
 
 
-sonar_layer:
-  ns : ""     #( string , default : ”” )  命名空间，用作所有topic的前缀；
-  topics : ['/sonar/1','/sonar/2','/sonar/3','/sonar/4']        #(Array of strings , default : [‘/sonar/1’] ) 列举可以订阅的距离topic；
-  no_readings_timeout : 0.0      #( double , default : 0.0 ) 如果是0，该参数不起作用，否则如果层在该参数指定时间内没有收到传感器任何数据，层会给出warning并被标记为没有数据流；
-  clear_threshold : 0.2        #( double, default : .2 ) 概率比clear_threshold低的cell在master costmap中被标记为free空间；
-  mark_threshold :  0.8    #( double , default : .8 ) 概率比mark_threshold高的cell在master costmap中被标记为lethal obstacles；
-  clear_on_max_reading :  true  #( bool , default : false ) 是否将超出sonar最大距离清除。
+# sonar_layer:
+#   ns : ""     #( string , default : ”” )  命名空间，用作所有topic的前缀；
+#   topics : ['/sonar/1','/sonar/2','/sonar/3','/sonar/4']        #(Array of strings , default : [‘/sonar/1’] ) 列举可以订阅的距离topic；
+#   no_readings_timeout : 0.0      #( double , default : 0.0 ) 如果是0，该参数不起作用，否则如果层在该参数指定时间内没有收到传感器任何数据，层会给出warning并被标记为没有数据流；
+#   clear_threshold : 0.2        #( double, default : .2 ) 概率比clear_threshold低的cell在master costmap中被标记为free空间；
+#   mark_threshold :  0.8    #( double , default : .8 ) 概率比mark_threshold高的cell在master costmap中被标记为lethal obstacles；
+#   clear_on_max_reading :  true  #( bool , default : false ) 是否将超出sonar最大距离清除。
