@@ -213,7 +213,7 @@ void HunterROSMessenger::PublishOdometryToROS(double linear, double angular,
   tf_msg.transform.translation.z = 0.0;
   tf_msg.transform.rotation = odom_quat;
 
-  // tf_broadcaster_.sendTransform(tf_msg);
+  tf_broadcaster_.sendTransform(tf_msg);
 
   // publish odometry and tf messages
   nav_msgs::Odometry odom_msg;
