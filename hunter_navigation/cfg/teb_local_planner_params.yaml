@@ -30,7 +30,7 @@ TebLocalPlannerROS:
 #  覆盖全局路径的方向是预留给3D路径规划使用的。对于车辆的2D规划，
  # 可以设置为False，可实现对全局路径的更好跟踪。
  allow_init_with_backwards_motion: False # True 在目标在本地成本图中落后于起点的情况下，可以使用向后运动来初始化基础轨迹,机器人配备了后部传感器的情况下才建议
- max_global_plan_lookahead_dist: 5.0
+ max_global_plan_lookahead_dist: 20.0
  #  最大向前看距离。考虑优化的全局计划子集的最大长度（累积欧几里得距离）（如果为0或负数：禁用；长度也受本地Costmap大小的限制） [0,50]
  # 1.应随车辆最大速度的增大而增大
  # 2.不应超过激光雷达等传感器的可靠测量范围 
@@ -49,54 +49,54 @@ TebLocalPlannerROS:
 
  # Robot
          
- max_vel_x: 0.5
+ max_vel_x: 0.6
  max_vel_x_backwards: 0.5
  acc_lim_x: 0.5
-
+ acc_lim_y: 0.0
  max_vel_y: 0.0
 
  max_vel_theta: 0.2 # the angular velocity is also bounded by min_turning_radius in case of a carlike robot (r = v / omega)
- acc_lim_theta: 0.2 #而角速度限制应作用在车辆高速行驶时。角速度约束可以防止高重心转弯过快翻车，角加速度限制可以避免车轮打滑，
+ acc_lim_theta: 0.5 #而角速度限制应作用在车辆高速行驶时。角速度约束可以防止高重心转弯过快翻车，角加速度限制可以避免车轮打滑，
  #车辆失控。对于低速平稳运行的车辆可以不约束此两项，将二者设为一个足够大的值即可。
 
  # ********************** Carlike robot parameters ********************
 # min_turning_radius 正确配置下最小转弯半径应在低速时生效,有些车辆转向性能不佳，前轮实际转过角度小于舵机角度，则应当给指令转角乘上一增益后再控制舵机，否则车辆将总是不能实现设置的最小转弯半径。请注意此项应当与最大角速度配合设置。
- min_turning_radius: 2.0  #1.7       # Min turning radius of the carlike robot (compute value using a model or adjust with rqt_reconfigure manually)
- wheelbase: 0.648                 # Wheelbase of our robot
+ min_turning_radius: 1.9  #1.7       # Min turning radius of the carlike robot (compute value using a model or adjust with rqt_reconfigure manually)
+ wheelbase: 0.648                 # Wheelbase of our robot 0.648
  cmd_angle_instead_rotvel: True # stage simulator takes the angle instead of the rotvel as input (twist message)
  # ********************************************************************
 
  footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
    type: "polygon"
-   radius: 0.2 # for type "circular"
-   line_start: [0.0, 0.0] # for type "line"
-   line_end: [0.648, 0.0] # for type "line"
-   front_offset: 0.2 # for type "two_circles"
-   front_radius: 0.2 # for type "two_circles"
-   rear_offset: 0.2 # for type "two_circles"
-   rear_radius: 0.2 # for type "two_circles"
+  #  radius: 0.2 # for type "circular"
+  #  line_start: [0.0, 0.0] # for type "line"
+  #  line_end: [0.648, 0.0] # for type "line"
+  #  front_offset: 0.2 # for type "two_circles"
+  #  front_radius: 0.2 # for type "two_circles"
+  #  rear_offset: 0.2 # for type "two_circles"
+  #  rear_radius: 0.2 # for type "two_circles"
   #  vertices: [ [-0.15, -0.38], [-0.15, 0.38], [0.85, 0.38], [0.85, -0.38] ] # for type "polygon"
-   vertices: [ [-0.25, -0.4], [-0.25, 0.4], [1.1, 0.4], [1.1, -0.4] ] # for type "polygon"
+   vertices: [ [-0.35, -0.5], [-0.35, 0.5], [1.2, 0.5], [1.2, -0.5] ] # for type "polygon"
  # GoalTolerance
     
  xy_goal_tolerance: 0.3  #目标位置跟踪误差
- yaw_goal_tolerance: 0.3  #目标姿态跟踪误差
+ yaw_goal_tolerance: 2.0  #目标姿态跟踪误差
  free_goal_vel: False #设为False时，车辆到达终点时的目标速度为0。我们已经指出，TEB是时间最优规划器。
  #缺少目标速度约束将导致车辆“全速冲线”，即使前方有一堵墙也是如此（因为撞墙的时刻不在规划器考虑范围内了）。
  complete_global_plan: True
     
  # Obstacles
     
- min_obstacle_dist: 0.4  #
+ min_obstacle_dist: 1.0  #
  # This value must also include our robot's expansion, since footprint_model is set to "line".
 # 和障碍物最小距离。若设置了车辆的轮廓，则不建议使用此参数。使用车辆轮廓配置footprint_model
 # 配合膨胀距离即可实现较好效果。障碍物惩罚权重很高，TEB不会违背这一最小距离约束，因此会把可
 # 以通过的缝隙视作不能通过，并终止运行。请注意，此处设置的机器人轮廓必须与局部耗费地图中的一
 # 致，后文将继续讨论。
 
- inflation_dist: 0.6 # 障碍物膨胀距离，惩罚成本不为零的障碍物周围的缓冲区（应大于min_obstacle_dist才能生效) [0.0,0.6,15.0]
+ inflation_dist: 1.2 # 障碍物膨胀距离，惩罚成本不为零的障碍物周围的缓冲区（应大于min_obstacle_dist才能生效) [0.0,0.6,15.0]
 # 障碍物膨胀距离。此膨胀只是降低通过这些区域的优先级，不应当用此距离迫使车辆远离障碍物。
- dynamic_obstacle_inflation_dist: 0.6  # 动态障碍物的膨胀范围，动态障碍物的预测位置周围的缓冲区的惩罚成本非零（应大于min_obstacle_dist才能生效） [0.0,0.6,15.0]
+ dynamic_obstacle_inflation_dist: 1.2  # 动态障碍物的膨胀范围，动态障碍物的预测位置周围的缓冲区的惩罚成本非零（应大于min_obstacle_dist才能生效） [0.0,0.6,15.0]
 
  include_costmap_obstacles: True  # 必须设置为True后才能规避实时探测到的、建图时不存在的障碍物。
 
@@ -111,7 +111,7 @@ TebLocalPlannerROS:
 
  costmap_converter_plugin: ""
  costmap_converter_spin_thread: True
- costmap_converter_rate: 5   # 5Hz
+ costmap_converter_rate: 8   # 5Hz
 
  # Optimization
 
@@ -133,15 +133,15 @@ TebLocalPlannerROS:
  weight_max_vel_theta: 1
  weight_acc_lim_x: 1
  weight_acc_lim_theta: 1
- weight_kinematics_nh: 1000  # 满足非完整运动学的优化权值 [0.0, 1000.0, 10000.0]
+ weight_kinematics_nh: 100  # 满足非完整运动学的优化权值 [0.0, 1000.0, 10000.0]
  weight_kinematics_forward_drive: 10 # 优化过程中，迫使机器人只选择前进方向，差速轮适用  [0.0,  1.0,  1000.0]
- weight_kinematics_turning_radius: 1    # 优化过程中，车型机器人的最小转弯半径的权重 [0.0,  1.0,  1000.0]
+ weight_kinematics_turning_radius: 100    # 优化过程中，车型机器人的最小转弯半径的权重 [0.0,  1.0,  1000.0]
  weight_optimaltime: 1 # must be > 0
  weight_shortest_path: 0
  weight_obstacle: 100       # 优化过程中，和障碍物最小距离的权重 [0.0,  50.0, 1000.0]
- weight_inflation: 0.2      # 优化过程中， 膨胀区的权重 [0.0, 0.1,  10.0]
- weight_dynamic_obstacle: 10 # not in use yet
- weight_dynamic_obstacle_inflation: 0.2
+ weight_inflation: 5.0     # 优化过程中， 膨胀区的权重 [0.0, 0.1,  10.0]
+ weight_dynamic_obstacle: 800 # not in use yet
+ weight_dynamic_obstacle_inflation: 8.4
  weight_viapoint: 1
  weight_adapt_factor: 2       # [1, 100]
 

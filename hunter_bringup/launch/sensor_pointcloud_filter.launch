@@ -23,7 +23,7 @@
     <remap from="~output" to="/points2" />
     <rosparam>
       filter_field_name: z
-      filter_limit_min: -0.8
+      filter_limit_min: -1.8
       filter_limit_max: 1.0
       filter_limit_negative: False
     </rosparam>

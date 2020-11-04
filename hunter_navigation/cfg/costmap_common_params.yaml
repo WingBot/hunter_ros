@@ -2,21 +2,24 @@
 #---standard pioneer footprint---
 #---(in meters)---
 #footprint: [ [0.254, -0.0508], [0.1778, -0.0508], [0.1778, -0.1778], [-0.1905, -0.1778], [-0.254, 0], [-0.1905, 0.1778], [0.1778, 0.1778], [0.1778, 0.0508], [0.254, 0.0508] ]
-footprint: [[-0.25, -0.4], [-0.25, 0.4], [1.1, 0.4], [1.1, -0.4]]   # 跟teb配置文件统一
+footprint: [[-0.35, -0.5], [-0.35, 0.5], [1.2, 0.5], [1.2, -0.5]]   # 跟teb配置文件统一
 
 transform_tolerance: 0.2
 # map_type: costmap
 
 obstacle_layer:
   enabled: true
-  obstacle_range: 8.0 # 3.0 规划考虑8米内障碍物
-  raytrace_range: 10.0 # 3.5 实时清除10米内障碍物
+  obstacle_range: 20.0 # 3.0 规划考虑8米内障碍物
+  raytrace_range: 15.0 # 3.5 实时清除10米内障碍物
   inflation_radius: 0.5 # 0.2
   track_unknown_space: false
   combination_method: 1
-  observation_sources: laser_scan_sensor
+  observation_sources: laser_scan_sensor point_cloud_sensor
   laser_scan_sensor:
     { data_type: LaserScan, topic: scan, marking: true, clearing: true }
+  # observation_sources: lidar_point
+  point_cloud_sensor:
+    { data_type: PointCloud2, topic: points2, marking: true, clearing: true }
 # 是否可以使用该传感器来标记障碍物;
 # 是否可以使用该传感器来清除障碍物标记为自由空间;  
 # 膨胀层，用于在障碍物外标记一层危险区域，在路径规划时需要避开该危险区域

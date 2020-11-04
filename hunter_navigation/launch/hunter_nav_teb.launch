@@ -7,6 +7,6 @@
     <include file="$(find hunter_navigation)/launch/config_move_base.launch" />
 
     <!-- visualization -->
-    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find hunter_navigation)/cfg/rviz_navigation.rviz"/> -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d /home/arsl/ws_wind/src/3D-SLAM/SC-LeGO-LOAM/SC-LeGO-LOAM/LeGO-LOAM/launch/mapping_2d_3d.rviz"/> -->
 
 </launch>
