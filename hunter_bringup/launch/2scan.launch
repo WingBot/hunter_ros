@@ -1,0 +1,10 @@
+<launch>
+
+	    <!--- Sim Time -->
+    <param name="/use_sim_time" value="true" />
+   <include file="$(find hunter_bringup)/launch/sensor_pointcloud_filter.launch" />
+   <include file="$(find hunter_bringup)/launch/sensor_pointcloud_to_laserscan.launch" />
+
+   <!-- <node pkg="tf" type="static_transform_publisher" name="rslidar_to_base_link" args="0 0 0 0 0 0   /base_link /rslidar   10" /> -->
+
+</launch>
